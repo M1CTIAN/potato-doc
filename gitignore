@@ -1,0 +1,7 @@
+# Ignore virtual environments
+myenv/
+venv/
+__pycache__/
+*.pyc
+myenv
+*.tar.xz
