@@ -158,7 +158,8 @@ export const ImageUpload = () => {
         formData.append("file", selectedFile);
         let res = await axios({
           method: "post",
-          url: "http://localhost:8000/predict",  // Use your local FastAPI endpoint
+          // Use Hugging Face Space endpoint
+          url: "https://micti-potato-disease-classification.hf.space/predict",
           data: formData,
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -170,6 +171,25 @@ export const ImageUpload = () => {
         }
       } catch (error) {
         console.error("Error:", error);
+        // If the direct /predict endpoint fails, try the API endpoint
+        try {
+          let formData = new FormData();
+          formData.append("file", selectedFile);
+          let res = await axios({
+            method: "post",
+            url: "https://micti-potato-disease-classification.hf.space/api/predict",
+            data: formData,
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Accept': 'application/json'
+            }
+          });
+          if (res.status === 200) {
+            setData(res.data);
+          }
+        } catch (secondError) {
+          console.error("Second attempt error:", secondError);
+        }
       } finally {
         setIsloading(false);
       }
