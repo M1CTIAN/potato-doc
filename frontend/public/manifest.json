@@ -1,9 +1,15 @@
 {
     "short_name": "Potato Doc",
-    "name": "Potato Disease Classification",
-    "icons": [],
+    "name": "Potato Disease Classification AI",
+    "icons": [
+        {
+            "src": "favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ],
     "start_url": ".",
     "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "#ffffff"
+    "theme_color": "#0a0a0a",
+    "background_color": "#0a0a0a"
 }

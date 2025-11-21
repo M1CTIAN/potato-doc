@@ -89,6 +89,7 @@ export const Scanner = () => {
                 linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
                 backgroundSize: '40px 40px',
                 maskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)',
+                WebkitMaskImage: 'radial-gradient(circle at center, black 40%, transparent 80%)',
                 zIndex: -1,
             }} />
 

@@ -81,11 +81,13 @@ export const Footer = () => {
                             {[
                                 { Icon: Twitter, href: '#' },
                                 { Icon: Linkedin, href: '#' },
-                                { Icon: Github, href: '#' },
+                                { Icon: Github, href: 'https://github.com/ssatwik975/potato-doc' },
                             ].map(({ Icon, href }, i) => (
                                 <motion.a
                                     key={i}
                                     href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     whileHover={{ scale: 1.1, y: -2 }}
                                     whileTap={{ scale: 0.95 }}
                                     style={{
