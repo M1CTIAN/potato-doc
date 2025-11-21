@@ -5,7 +5,7 @@ import uvicorn
 import numpy as np
 from io import BytesIO
 from PIL import Image
-import random
+import tensorflow as tf
 
 app = FastAPI()
 
@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# MODEL = tf.keras.models.load_model("../models/1/model.keras")
+MODEL = tf.keras.models.load_model("../models/1/model.keras")
 
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
@@ -41,16 +41,13 @@ def read_file_as_image(data) -> np.ndarray:
 async def predict(
     file: UploadFile = File(...)
 ):
-    # Mocking prediction logic
-    # image = read_file_as_image(await file.read())
-    # img_batch = np.expand_dims(image, 0)
-    # predictions = MODEL.predict(img_batch)
-    # predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
-    # confidence = np.max(predictions[0])
+    image = read_file_as_image(await file.read())
+    img_batch = np.expand_dims(image, 0)
     
-    # Return random mock data
-    predicted_class = random.choice(CLASS_NAMES)
-    confidence = random.uniform(0.8, 1.0)
+    predictions = MODEL.predict(img_batch)
+
+    predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
+    confidence = np.max(predictions[0])
     
     return {
         'class': predicted_class,
