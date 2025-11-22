@@ -52,10 +52,13 @@ const Scanner = () => {
         setLoading(true);
         setError(null);
 
-        // FIX: Direct URL usage (Bypassing environment variables)
-        // TODO: PASTE YOUR ACTUAL HUGGING FACE LINK HERE ↓
+        // FIX: Direct URL usage
+        // Ensure no trailing slash in the URL
         const API_URL = 'https://micti-potato-disease-classification.hf.space'; 
         
+        // Debugging: This will show up in Console (F12) if the new code is running
+        console.log("Attempting to connect to:", API_URL);
+
         const formData = new FormData();
         formData.append('file', file);
 
@@ -71,11 +74,10 @@ const Scanner = () => {
             
             let errorMessage = 'Failed to analyze image. Please try again.';
             
-            // Check for connection errors
             if (err.code === 'ERR_NETWORK' || err.message === 'Network Error') {
-                errorMessage = `Cannot connect to backend. Please check if the URL '${API_URL}' is correct.`;
+                errorMessage = `Cannot connect to backend at ${API_URL}. Please check if the server is running and supports CORS.`;
             } else if (err.response && err.response.status === 405) {
-                errorMessage = 'Method Not Allowed. Please check your API URL configuration.';
+                errorMessage = 'Method Not Allowed. The backend might be rejecting the request type.';
             }
 
             setError(errorMessage);
