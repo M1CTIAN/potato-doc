@@ -56,7 +56,12 @@ const Scanner = () => {
         formData.append('file', file);
 
         try {
-            const response = await axios.post('/predict/', formData, {
+            // FIX: Use absolute URL from environment variable.
+            // On Vercel, relative paths ('/predict') fail because the frontend is static.
+            // Fallback to localhost for local development.
+            const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+
+            const response = await axios.post(`${API_URL}/predict`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
